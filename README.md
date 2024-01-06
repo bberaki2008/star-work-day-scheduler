@@ -4,8 +4,8 @@
 
 ## Description
 
-AN employee or any consumer with a busy schedule(e.g. work day scheduler) can use this app to add important events to thier daily planner
-SO THAT they can manage my time effectively.
+An employee or any consumer with a busy schedule(e.g. work day scheduler) can use this app to add important events to thier daily planner
+so that they can manage to time effectively.
 
 ## Installation
 
