@@ -17,7 +17,7 @@ $(function () {
   let hour14El = $("#hour-14");
   let hour15El = $("#hour-15");
   let hour16El = $("#hour-16");
-  let hour17El = $("#hour-17");
+  let hour17El = $("#hour-17"); 
 
 
   // handle displaying the current week day, Month and day of the month.
@@ -27,31 +27,20 @@ $(function () {
     
   }
 
-  let hourArray = [hour09El, hour10El, hour11El, hour12El, hour13El, hour14El, hour15El, hour16El, hour17El]
   function timeBackGround(){
-    let currentHour = moment().format('k kk'); //hA, H HH, h, h hh, a A
-    // console.log(currentHour);
-    // console.log(parseInt(hour09El.text().trim()) ===currentHour);
+    let hourArray = [hour09El, hour10El, hour11El, hour12El, hour13El, hour14El, hour15El, hour16El, hour17El]
+    let currentHour = moment().format('k kk');
     for(let i=0; i<9; i++) {
       let calTime = hourArray[i].text().trim();
       morningTimeCal = calTime.includes("AM")? true:false;
-      console.log("includeds AM cal :" +calTime);
-      //console.log(`includeds AM :${morningTimeCal}` + i);
-      let morningTimeActual = currentHour <12? true: false;
-
-      console.log(`includeds AM moment :${currentHour}`);
-      //console.log(`includeds PM :${morningTimeActual}` + i);
       currentHour=parseInt(currentHour);
       calTime = parseInt(calTime);
       calTime = !morningTimeCal && calTime !==12 ? calTime + 12 :calTime;
           if(calTime < currentHour){
             hourArray[i].removeClass('present future past');
             hourArray[i].addClass('past');
-        // console.log(hourArray[i].text().replace('AM',''));
           }
           else if(calTime === currentHour){
-            //  console.log(currentHour);
-            //   console.log(parseInt(hourArray[i].text().replace('AM','')));
             hourArray[i].removeClass('present future past');
             hourArray[i].addClass('present');
           }
@@ -59,110 +48,6 @@ $(function () {
             hourArray[i].removeClass('present future past');
             hourArray[i].addClass('future');
           }
-
-
-      // if(morningTimeCal && morningTimeActual){
-      //     if(calTime < currentHour){
-      //       hourArray[i].removeClass('present future past');
-      //       hourArray[i].addClass('past');
-      //   // console.log(hourArray[i].text().replace('AM',''));
-      //     }
-      //     else if(calTime === currentHour){
-      //       //  console.log(currentHour);
-      //       //   console.log(parseInt(hourArray[i].text().replace('AM','')));
-      //       hourArray[i].removeClass('present future past');
-      //       hourArray[i].addClass('present');
-      //     }
-      //     else {
-      //       hourArray[i].removeClass('present future past');
-      //       hourArray[i].addClass('future');
-      //     }
-
-      //   }
-
-      // else if(morningTimeActual){
-      //   // console.log(hourArray[i].text().replace('PM',''));
-      //     // console.log(morningTime);
-      //     currentHour = currentHour % 12;
-      //     if(calTime < currentHour){
-      //       hourArray[i].removeClass('present future past');
-      //       hourArray[i].addClass('past');
-              
-
-      //     }
-      //     else if(calTime ===currentHour){
-            
-      //         // console.log(currentHour);
-      //         // console.log(parseInt(hourArray[i].text().replace('PM','')));
-      //       hourArray[i].removeClass('present future past');
-      //       hourArray[i].addClass('present');
-      //     }
-      //     else {
-
-      //       hourArray[i].removeClass('present future past');
-      //       hourArray[i].addClass('future');
-      //     }
-
-      // }
-
-      // else if(calTime === 12 && (currentHour - calTime) > 0){
-      //               hourArray[i].removeClass('present future past');
-      //       hourArray[i].addClass('past');
-              
-
-      // }
-      //   else if(morningTimeCal){
-      //   // console.log(hourArray[i].text().replace('PM',''));
-      //     // console.log(morningTime);
-      //     // calTime = calTime % 12;
-      //     // if(calTime < currentHour){
-      //       hourArray[i].removeClass('present future past');
-      //       hourArray[i].addClass('past');
-              
-
-          // }
-          // else{
-          //   console.log("uncaught error!");
-          // }
-          // else if(calTime ===currentHour){
-            
-          //     // console.log(currentHour);
-          //     // console.log(parseInt(hourArray[i].text().replace('PM','')));
-          //   hourArray[i].removeClass('present future past');
-          //   hourArray[i].addClass('present');
-          // }
-          // else {
-
-          //   hourArray[i].removeClass('present future past');
-          //   hourArray[i].addClass('future');
-          // }
-
-      // }
-      // else {
-
-      //    hourArray[i].removeClass('present future past');
-      //       hourArray[i].addClass('future');
-        // currentHour = currentHour % 12;
-        //   if(calTime < currentHour){
-        //     hourArray[i].removeClass('present future past');
-        //     hourArray[i].addClass('past');
-              
-
-        //   }
-        //   else if(calTime ===currentHour){
-            
-        //       // console.log(currentHour);
-        //       // console.log(parseInt(hourArray[i].text().replace('PM','')));
-        //     hourArray[i].removeClass('present future past');
-        //     hourArray[i].addClass('present');
-        //   }
-        //   else {
-
-        //     hourArray[i].removeClass('present future past');
-        //     hourArray[i].addClass('future');
-        //   }
-
-    //   }
     }
   }
 
