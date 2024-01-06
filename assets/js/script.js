@@ -27,9 +27,10 @@ $(function () {
     
   }
 
+  let currentHour = moment().format('k kk');
   function timeBackGround(){
     let hourArray = [hour09El, hour10El, hour11El, hour12El, hour13El, hour14El, hour15El, hour16El, hour17El]
-    let currentHour = moment().format('k kk');
+    //let currentHour = moment().format('k kk');
     for(let i=0; i<9; i++) {
       let calTime = hourArray[i].text().trim();
       morningTimeCal = calTime.includes("AM")? true:false;
@@ -50,6 +51,77 @@ $(function () {
           }
     }
   }
+
+
+// Bonus: Add reset button
+
+// function saveSchedule(event) {
+//   // Resets win and loss counts
+//   let saveButton = event.target.parentElement
+//   localStorage.setItem("h09", plan);
+//   // Renders win and loss counts and sets them into client storage
+//   setWins()
+//   setLosses()
+// }
+// // Attaches event listener to button
+// const reset = document.querySelector("#reset");
+// reset.addEventListener("click", () => document.location.reload());
+
+
+// function handler( event ) {
+//   event.preventDefault();
+//   let target = $( event.target );    
+//   // let x = $(".description1").text();
+//   let x = document.querySelector(".description1").textContent;
+//   let h09 = localStorage.getItem("h09");
+// console.log(x);
+//   if ( target.is( ".saveBtn" ) ) {
+//     //  console.log(x);
+//     localStorage.setItem("h09", "x");
+//     // x.text(localStorage.getItem("h09"));
+//    console.log(localStorage.getItem(h09));
+//     // console.log(x.text());
+//     console.log(localStorage);
+//   }
+// }
+// $( ".saveBtn" ).on( "click", handler );
+
+
+
+function handleProjectFormSubmit(event) {
+  event.preventDefault();
+  let target = $( event.target );
+  // let y = document.querySelectorAll(".description1");
+  // let x = $(".description1").val().trim();
+
+  if ( target.is( ".saveBtn" ) ) {
+    //  console.log(x);
+     //let x = $(".saveBtn").prev().val().trim();
+      let x = $("div").nextUntil('button');
+      let x1 = $("div").nextUntil('button');
+    //  let y = $(".saveBtn").prev().prev().text().split("M");
+     let z = $("#hour-9").first().text().trim();
+     let z1 = $("#hour-10").first().text().trim();
+     let z2 = $("#hour-11").first().text().trim();
+     let z3 = $("#hour-12").first().text().trim();
+    //  console.log(z);
+    localStorage.setItem(z1, x);
+    localStorage.setItem(z2, x);
+    localStorage.setItem(z3, x);
+    // x.text(localStorage.getItem("h09"));
+   //x = localStorage.getItem('h10');
+    // console.log(x.text());
+    console.log(z2);
+    hour09El.text = localStorage.getItem(z);
+    hour10El.text = localStorage.getItem(z1);
+  }
+
+  // projectFormEl[0].reset();
+}
+
+// projectFormEl.on('.saveBtn', handleProjectFormSubmit);
+$( ".saveBtn" ).on( "click", handleProjectFormSubmit);
+$( "#hour-9" ).on( "click", handleProjectFormSubmit);
 
   timeBackGround();
   
