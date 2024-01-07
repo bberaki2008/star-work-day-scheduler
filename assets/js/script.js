@@ -1,15 +1,7 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
+// the code isn't run until the browser has finished rendering all the elements in the html.
 $(function () {
-  // TODO: Add a listener for click events on the save button. This code should
-  // use the id in the containing time-block as a key to save the user input in
-  // local storage. HINT: What does `this` reference in the click listener
-  // function? How can DOM traversal be used to get the "hour-x" id of the
-  // time-block containing the button that was clicked? How might the id be
-  // useful when saving the description in local storage?
-  //
-  let hour09El = $("#hour-9");
+  let hour9El = $("#hour-9");
   let hour10El = $("#hour-10");
   let hour11El = $("#hour-11");
   let hour12El = $("#hour-12");
@@ -19,18 +11,16 @@ $(function () {
   let hour16El = $("#hour-16");
   let hour17El = $("#hour-17"); 
 
-
+  let hourArray = [hour9El, hour10El, hour11El, hour12El, hour13El, hour14El, hour15El, hour16El, hour17El]
   // handle displaying the current week day, Month and day of the month.
   function displayTime(){
     let currentDayEl = $("#currentDay");
-    currentDayEl.text(moment().format('dddd, MMMM Do'));
-    
+    currentDayEl.text(moment().format('dddd, MMMM Do')); 
   }
-
+ // handle displaying the current hours in 24 hours format (1-24).
   let currentHour = moment().format('k kk');
+// handle the hour block background color depending on the time of the day (past ="gray-color", present= "red-color" and future="green-color");
   function timeBackGround(){
-    let hourArray = [hour09El, hour10El, hour11El, hour12El, hour13El, hour14El, hour15El, hour16El, hour17El]
-    //let currentHour = moment().format('k kk');
     for(let i=0; i<9; i++) {
       let calTime = hourArray[i].text().trim();
       morningTimeCal = calTime.includes("AM")? true:false;
@@ -52,92 +42,67 @@ $(function () {
     }
   }
 
+  // starting sample plans array
+let plans = ["go to school", "shopping", "class", "study", "go to school", "shopping", "class", "study" , "relax"];
 
-// Bonus: Add reset button
+// The following function renders items in a plans array.
+function renderSchedulPlan() {
+  // Clear and update work day schedule
+  hour9El.children().eq(1).val("");
+// Render a new li for each todo
 
-// function saveSchedule(event) {
-//   // Resets win and loss counts
-//   let saveButton = event.target.parentElement
-//   localStorage.setItem("h09", plan);
-//   // Renders win and loss counts and sets them into client storage
-//   setWins()
-//   setLosses()
-// }
-// // Attaches event listener to button
-// const reset = document.querySelector("#reset");
-// reset.addEventListener("click", () => document.location.reload());
+  for (var i = 0; i < plans.length; i++) {
+    let plan = plans[i];
+    console.log(plan + " : "+ i)
+    hourArray[i].children().eq(1).val(plan);
+    // hour09El.children().eq(1).setAttribute("data-index", i);
 
-
-// function handler( event ) {
-//   event.preventDefault();
-//   let target = $( event.target );    
-//   // let x = $(".description1").text();
-//   let x = document.querySelector(".description1").textContent;
-//   let h09 = localStorage.getItem("h09");
-// console.log(x);
-//   if ( target.is( ".saveBtn" ) ) {
-//     //  console.log(x);
-//     localStorage.setItem("h09", "x");
-//     // x.text(localStorage.getItem("h09"));
-//    console.log(localStorage.getItem(h09));
-//     // console.log(x.text());
-//     console.log(localStorage);
-//   }
-// }
-// $( ".saveBtn" ).on( "click", handler );
-
-
-
-function handleProjectFormSubmit(event) {
-  event.preventDefault();
-  let target = $( event.target );
-  // let y = document.querySelectorAll(".description1");
-  // let x = $(".description1").val().trim();
-
-  if ( target.is( ".saveBtn" ) ) {
-    //  console.log(x);
-     //let x = $(".saveBtn").prev().val().trim();
-      let x = $("div").nextUntil('button');
-      let x1 = $("div").nextUntil('button');
-    //  let y = $(".saveBtn").prev().prev().text().split("M");
-     let z = $("#hour-9").first().text().trim();
-     let z1 = $("#hour-10").first().text().trim();
-     let z2 = $("#hour-11").first().text().trim();
-     let z3 = $("#hour-12").first().text().trim();
-    //  console.log(z);
-    localStorage.setItem(z1, x);
-    localStorage.setItem(z2, x);
-    localStorage.setItem(z3, x);
-    // x.text(localStorage.getItem("h09"));
-   //x = localStorage.getItem('h10');
-    // console.log(x.text());
-    console.log(z2);
-    hour09El.text = localStorage.getItem(z);
-    hour10El.text = localStorage.getItem(z1);
   }
-
-  // projectFormEl[0].reset();
 }
 
-// projectFormEl.on('.saveBtn', handleProjectFormSubmit);
-$( ".saveBtn" ).on( "click", handleProjectFormSubmit);
-$( "#hour-9" ).on( "click", handleProjectFormSubmit);
+// This function is being called below and will run when the page loads.
+function init() {
+  // Get stored plan from localStorage
+  let storedSchedulePlan = JSON.parse(localStorage.getItem("plans"));
+console.log(JSON.parse(localStorage.getItem("plans")));
 
-  timeBackGround();
-  
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
-  //
-  // TODO: Add code to display the current date in the header of the page.
+  // If plans were retrieved from localStorage, update the plan array to it
+  if (storedSchedulePlan !== null) {
+    plans = storedSchedulePlan;
+  }
 
-  setInterval(displayTime, 1000);
+  // This is a helper function that will render plans to the DOM
+  renderSchedulPlan();
+}
+
+function storeSchedulePlan() {
+  // Stringify and set key in localStorage to plans array
+  localStorage.setItem("todos", JSON.stringify(plans));
+}
+
+// Add click event to work day schedul button elements
+$( ".saveBtn" ).on( "click", function(event) {
+  let element = event.target;
+
+  // Checks if element is a button
+  if (element.matches("button") === true) {
+    // Get its data-index value and save the plan of the hour block to the array.
+    let x = $(".saveBtn").prev().val().trim();;
+    plans[0] = "it is working";
+    plans[8] = "your are the boss";
+
+    // Store updated todos in localStorage, re-render the list
+    storeSchedulePlan();
+    renderSchedulPlan();
+  }
+});
+
+// Calls init to retrieve data and render it to the page on load
+init()
+// handle the hour block background color depending on the time of the day (past ="gray-color", present= "red-color" and future="green-color");
+timeBackGround();
+//set the interval seconds(in mili seconds - i.e 1second = 1000miliseconds) for the displayTime function
+setInterval(displayTime, 1000);
 });
 
 
