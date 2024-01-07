@@ -11,7 +11,12 @@ $(function () {
   let hour16El = $("#hour-16");
   let hour17El = $("#hour-17"); 
 
-  let hourArray = [hour9El, hour10El, hour11El, hour12El, hour13El, hour14El, hour15El, hour16El, hour17El]
+  let hourArray = [hour9El, hour10El, hour11El, hour12El, hour13El, hour14El, hour15El, hour16El, hour17El];
+
+// starting sample plans array
+let plans =[];
+plans = localStorage.getItem("plans")?localStorage.getItem("plans"): plans;
+console.log(plans);
   // handle displaying the current week day, Month and day of the month.
   function displayTime(){
     let currentDayEl = $("#currentDay");
@@ -41,62 +46,49 @@ $(function () {
           }
     }
   }
-
-  // starting sample plans array
-let plans = ["go to school", "shopping", "class", "study", "go to school", "shopping", "class", "study" , "relax"];
-
 // The following function renders items in a plans array.
 function renderSchedulPlan() {
   // Clear and update work day schedule
-  hour9El.children().eq(1).val("");
-// Render a new li for each todo
-
-  for (var i = 0; i < plans.length; i++) {
+  // hour9El.children().eq(1).val("");
+  for (var i = 0; i < 9; i++) {
     let plan = plans[i];
-    console.log(plan + " : "+ i)
+    // if(!plan) 
+    //   plan ="";
     hourArray[i].children().eq(1).val(plan);
-    // hour09El.children().eq(1).setAttribute("data-index", i);
-
+    $( hourArray[i].children().eq(1)).attr("data-index", i);
   }
 }
-
 // This function is being called below and will run when the page loads.
 function init() {
   // Get stored plan from localStorage
   let storedSchedulePlan = JSON.parse(localStorage.getItem("plans"));
-console.log(JSON.parse(localStorage.getItem("plans")));
-
   // If plans were retrieved from localStorage, update the plan array to it
   if (storedSchedulePlan !== null) {
     plans = storedSchedulePlan;
   }
-
   // This is a helper function that will render plans to the DOM
   renderSchedulPlan();
 }
 
 function storeSchedulePlan() {
   // Stringify and set key in localStorage to plans array
-  localStorage.setItem("todos", JSON.stringify(plans));
+  localStorage.setItem("plans", JSON.stringify(plans));
 }
 
 // Add click event to work day schedul button elements
 $( ".saveBtn" ).on( "click", function(event) {
-  let element = event.target;
-
+  let element = event.currentTarget;
   // Checks if element is a button
   if (element.matches("button") === true) {
     // Get its data-index value and save the plan of the hour block to the array.
-    let x = $(".saveBtn").prev().val().trim();;
-    plans[0] = "it is working";
-    plans[8] = "your are the boss";
-
-    // Store updated todos in localStorage, re-render the list
+    let inputText = $(element).prev().val().trim();
+    let index =  $(element).prev().attr("data-index");
+    plans[index] = inputText;
+    // Store updated plans in localStorage, re-render the list
     storeSchedulePlan();
     renderSchedulPlan();
   }
 });
-
 // Calls init to retrieve data and render it to the page on load
 init()
 // handle the hour block background color depending on the time of the day (past ="gray-color", present= "red-color" and future="green-color");
