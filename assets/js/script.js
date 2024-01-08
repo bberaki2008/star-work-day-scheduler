@@ -13,7 +13,7 @@ $(function () {
 
   let hourArray = [hour9El, hour10El, hour11El, hour12El, hour13El, hour14El, hour15El, hour16El, hour17El];
 
-// starting sample plans array
+// initializing plans with an empty array.
 let plans =[];
 plans = localStorage.getItem("plans")?localStorage.getItem("plans"): plans;
 console.log(plans);
