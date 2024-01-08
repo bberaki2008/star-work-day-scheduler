@@ -86,10 +86,10 @@ $( ".saveBtn" ).on( "click", function(event) {
   para.textContent ='Appointment Added to ';
   let span = document.createElement("span");
   span.textContent ="localStorage";
-  span.setAttribute("class","danger");
+  span.setAttribute("class","text-danger");
   para.appendChild(span);
   let img = document.createElement("img");
-  img.setAttribute("src", "./assests/img/check.png");
+  img.setAttribute("src", "./assets/img/check.png");
   para.appendChild(img);
   header.append(para);
   let element = event.currentTarget;
