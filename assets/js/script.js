@@ -33,9 +33,9 @@ $(function () {
       calTime = parseInt(calTime);
       //using condition (ternary) operator checking mornings and afernoon and then added 12 hours inorder to change it to 24 hour format.
       calTime = !morningTimeCal && calTime !==12 ? calTime + 12 :calTime;
-          if(calTime < currentHour) hourArray[i].addClass('past');
-          else if(calTime === currentHour) hourArray[i].addClass('present');
-          else hourArray[i].addClass('future');
+      if(calTime < currentHour) hourArray[i].addClass('past');
+      else if(calTime === currentHour) hourArray[i].addClass('present');
+      else hourArray[i].addClass('future');
     }
   }
   // The following function renders items in a plans array.
@@ -56,10 +56,11 @@ $(function () {
   let para = document.createElement("p");
 
   function init() {
-    para.setAttribute("class", "custom-border-top")
-    header.append(para);
     // Get stored plan from localStorage
     let storedSchedulePlan = JSON.parse(localStorage.getItem("plans"));
+    para.setAttribute("class", "custom-border-top")
+    header.append(para);
+  
     // If plans were retrieved from localStorage, update the plan array to it
     if (storedSchedulePlan !== null) plans = storedSchedulePlan;
     // This is a helper function that will render plans to the DOM
@@ -67,20 +68,23 @@ $(function () {
   }
 
   // Stringify and set key in localStorage to plans array
- const storeSchedulePlan =() => localStorage.setItem("plans", JSON.stringify(plans));
+  const storeSchedulePlan =() => localStorage.setItem("plans", JSON.stringify(plans));
 
   // Add click event to work day schedul button elements
-  $( ".saveBtn" ).on( "click", function(event) {
-    para.textContent ='Appointment Added to ';
+  $(".saveBtn" ).on( "click", function(event) {
     let span = document.createElement("span");
+    let img = document.createElement("img");
+    let element = event.currentTarget;
+
+    para.textContent ='Appointment Added to ';
     span.textContent ="localStorage";
     span.setAttribute("class","text-danger");
     para.appendChild(span);
-    let img = document.createElement("img");
+    //Add "Done" icon
     img.setAttribute("src", "./assets/img/check.png");
     para.appendChild(img);
     header.append(para);
-    let element = event.currentTarget;
+  
     // Checks if element is a button
     if (element.matches("button") === true) {
       // Get its data-index value and save the plan of the hour block to the array.
