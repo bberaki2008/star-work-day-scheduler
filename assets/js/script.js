@@ -89,7 +89,7 @@ $( ".saveBtn" ).on( "click", function(event) {
   span.setAttribute("class","danger");
   para.appendChild(span);
   let img = document.createElement("img");
-  img.setAttribute("src", "./assests/img/check.png");
+  img.setAttribute("src", "./assets/img/check.png");
   para.appendChild(img);
   header.append(para);
   let element = event.currentTarget;
