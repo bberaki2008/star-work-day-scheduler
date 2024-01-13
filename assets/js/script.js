@@ -22,8 +22,9 @@ $(function () {
     currentDayEl.text(moment().format('dddd, MMMM Do')); 
   }
 
- // handle displaying the current hours in 24 hours format (1-24).
-  let currentHour = moment().format('k kk');
+ // handle displaying the current hours in 24 hours format (0-23).
+  let currentHour = moment().format('H');
+  console.log(currentHour); //////*********************delete it before you summit it */
  // handle the hour block background color depending on the time of the day (past ="gray-color", present= "red-color" and future="green-color");
   function timeBackGround(){
     for(let i=0; i<9; i++) {
@@ -44,8 +45,6 @@ $(function () {
     // hour9El.children().eq(1).val("");
     for (var i = 0; i < 9; i++) {
       let plan = plans[i];
-      // if(!plan) 
-      //   plan ="";
       hourArray[i].children().eq(1).val(plan);
       $( hourArray[i].children().eq(1)).attr("data-index", i);
     }
