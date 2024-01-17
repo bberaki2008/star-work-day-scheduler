@@ -24,7 +24,6 @@ $(function () {
 
  // handle displaying the current hours in 24 hours format (0-23).
   let currentHour = moment().format('H');
-  console.log(currentHour); //////*********************delete it before you summit it */
  // handle the hour block background color depending on the time of the day (past ="gray-color", present= "red-color" and future="green-color");
   function timeBackGround(){
     for(let i=0; i<9; i++) {
@@ -42,7 +41,6 @@ $(function () {
   // The following function renders items in a plans array.
   function renderSchedulPlan() {
     // Clear and update work day schedule
-    // hour9El.children().eq(1).val("");
     for (var i = 0; i < 9; i++) {
       let plan = plans[i];
       hourArray[i].children().eq(1).val(plan);
@@ -85,11 +83,9 @@ $(function () {
     header.append(para);
 
     setTimeout(function (){
-
       para.remove();
     },3000)
    
-  
     // Checks if element is a button
     if (element.matches("button") === true) {
       // Get its data-index value and save the plan of the hour block to the array.
