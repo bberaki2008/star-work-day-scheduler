@@ -83,6 +83,12 @@ $(function () {
     img.setAttribute("src", "./assets/img/check.png");
     para.appendChild(img);
     header.append(para);
+
+    setTimeout(function (){
+
+      para.remove();
+    },3000)
+   
   
     // Checks if element is a button
     if (element.matches("button") === true) {
@@ -91,8 +97,7 @@ $(function () {
       let index =  $(element).prev().attr("data-index");
       plans[index] = inputText;
       // Store updated plans in localStorage, re-render the list
-      storeSchedulePlan();
-      renderSchedulPlan();
+      localStorage.setItem("plans", JSON.stringify(plans));
     }
   });
   // Calls init to retrieve data and render it to the page on load
